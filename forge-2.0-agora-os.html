@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forge 2.0: The Operating System for the Agora</title>
+    <style>
+        :root {
+            --bg-color: #F3F3EA;
+            --text-color: #231F20;
+            --primary-color: #059669; /* Darker Green for better contrast */
+            --accent-yellow: #F7FF96;
+            --border-color: #B1C3BD;
+            --header-border-color: #231F20;
+            --code-bg: #231F20;
+            --code-text: #F3F3EA;
+            --table-header-bg: #e9e9e1;
+            --table-border: #B1C3BD;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+            line-height: 1.7;
+            color: var(--text-color);
+            background: var(--bg-color);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--header-border-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .header h1 { 
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            font-size: 3rem; 
+            margin-bottom: 0.5rem; 
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: var(--text-color);
+        }
+        .header .subtitle { color: #555; font-size: 1rem; }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 0.5rem 1rem;
+            margin-bottom: 3rem;
+            font-size: 0.9rem;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .meta-grid .label { font-weight: 600; text-align: right; color: #666; }
+        .section { margin-bottom: 3.5rem; }
+        h2 { 
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            margin-bottom: 1.5rem; 
+            padding-bottom: 0.75rem; 
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        h3 { 
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            font-size: 1.4rem; 
+            font-weight: 600; 
+            margin: 2rem 0 1rem 0; 
+            color: var(--primary-color);
+        }
+        p, ul, ol, dl { margin-bottom: 1.25rem; font-size: 1.05rem; color: #333; }
+        ul, ol, dl { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        dt { font-weight: 600; color: var(--primary-color); margin-top: 1rem; }
+        dd { margin-left: 1.5rem; color: #444; }
+        a { color: var(--primary-color); text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+        code {
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            color: #231F20;
+            background: rgba(122, 239, 177, 0.3); /* Mint background */
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .code-block {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: #fff;
+        }
+        th, td {
+            border: 1px solid var(--table-border);
+            padding: 0.9rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th { background-color: var(--table-header-bg); font-weight: 600; color: var(--text-color); }
+        .vs-table td:first-child { font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Forge 2.0</h1>
+        <div class="subtitle">The Operating System for the Agora</div>
+    </div>
+
+    <div class="meta-grid">
+        <div class="label">TO:</div>         <div>Alex, Tom, Ryan, Hunter, Gorlock, Tony, John Connor, Rex</div>
+        <div class="label">FROM:</div>       <div>Rex</div>
+        <div class="label">DATE:</div>       <div>February 18, 2026</div>
+        <div class="label">SUBJECT:</div>    <div>Addendum to Project Agora: The Evolution of Forge</div>
+    </div>
+
+    <div class="section">
+        <p>The Project Agora brief describes the agent's world. This document details how **Forge must evolve alongside the agents** to support that vision. Forge cannot remain a simple task tracker. It must become the central nervous system for our entire AI-human workforce—the operating system for the Agora itself.</p>
+    </div>
+
+    <div class="section">
+        <h2>1. Structured Tasking: From Text Box to Command</h2>
+        <p>The root of the "synaptic gap" is that a task in Forge is unstructured text. To solve this, we must transform tasks into structured commands that our agents can understand natively.</p>
+        
+        <h3>What Needs to Change:</h3>
+        <ul>
+            <li><strong>New Field: "Primary Engram":</strong> A dropdown list, automatically populated from our <code>engrams/</code> directories, allows a user to link a task directly to the knowledge required to complete it.</li>
+            <li><strong>New Feature: "Task Templates":</strong> For common tasks, a template can pre-select the Engram and required parameters, removing cognitive load.</li>
+            <li><strong>New Field: "Structured Parameters":</strong> Dedicated, machine-readable fields for crucial data like <code>project_id: "12345"</code>.</li>
+            <li><strong>Granular Statuses:</strong> Evolve beyond "To Do / Done" to include states like <code>Pending Data Verification</code>, <code>Awaiting Customer Signature</code>, or <code>Blocked: Missing Information</code>.</li>
+        </ul>
+        <p><strong>The Result:</strong> An agent's heartbeat no longer finds a vague instruction. It finds a structured JSON object: <code>{ task: "Submit Interconnection", engram: "interconnection-submission", params: { project_id: "12345" } }</code>. There is no room for misinterpretation. The path to execution is crystal clear.</p>
+    </div>
+
+    <div class="section">
+        <h2>2. Agent Management: Visualizing the Hierarchy</h2>
+        <p>Our workforce will consist of Manager agents and their permanent Worker Bee sub-agents. The Forge UI needs to reflect this reality.</p>
+        
+        <h3>What Needs to Change:</h3>
+        <ul>
+            <li><strong>Org Chart View:</strong> The "AI Operations" page will include an organizational chart view, showing which Worker Bees report to which Manager.</li>
+            <li><strong>Specialization Tag:</strong> Each Worker Bee profile will clearly display its specialization, directly tied to the primary Engram it was designed to execute (e.g., "Specialization: <code>interconnection-submission</code>").</li>
+        </ul>
+        <p><strong>The Result:</strong> We gain a clear, visual understanding of our AI workforce's structure, capabilities, and reporting lines, making it easy to see who is responsible for what.</p>
+    </div>
+
+    <div class="section">
+        <h2>3. The Agora Interface: A Library for Our Collective Brain</h2>
+        <p>The Engrams cannot live only in GitHub. They must be visible, navigable, and understandable for the entire team directly within Forge.</p>
+
+        <h3>What Needs to Change:</h3>
+        <ul>
+            <li><strong>New Top-Level Section: "The Agora":</strong> A new tab in the Forge sidebar.</li>
+            <li><strong>Engram Browser:</strong> An interface that reads directly from our <code>engrams/</code> Git repositories and displays them in a clean, navigable UI.</li>
+            <li><strong>Mermaid.js Rendering:</strong> When a user clicks on an Engram's MOC (<code>_index.md</code>), Forge will parse and render the embedded Mermaid.js diagrams, providing an instant visual understanding of the process flow.</li>
+            <li><strong>Integrated "Lessons" View:</strong> Each Engram page will have a dedicated tab to view all the "Lessons" associated with it, allowing any team member to review the history of real-world learnings.</li>
+        </ul>
+        <p><strong>The Result:</strong> The Agora becomes the living, breathing heart of our operations. It's not just for agents; it's the central knowledge base and training manual for the entire company.</p>
+    </div>
+
+    <div class="section">
+        <h2>4. The Feedback Loop: Closing the Circuit of Learning</h2>
+        <p>We must formalize the process of turning human feedback into machine-readable lessons.</p>
+
+        <h3>What Needs to Change:</h3>
+        <ul>
+            <li><strong>New Button: "Provide Feedback":</strong> On every completed task, a new button appears. Clicking it opens a simple form: "What was the unexpected outcome? What was the resolution?"</li>
+            <li><strong>New Task State: `Pending Lesson Review`:** When a human submits feedback, the original task's status changes. This becomes the **trigger** for the Scribe agent.</li>
+            <li><strong>New UI: "Pending Lessons" Queue:** Within the Agora interface, a new queue appears, showing all the lessons that have been auto-generated by Scribe agents and are awaiting review.</li>
+            <li><strong>Integrated PR Review:</strong> Each item in the queue links directly to the pull request in GitHub that the Scribe created. A VH1 user can review, approve, and merge the lesson directly from the Forge UI.</li>
+        </ul>
+        <p><strong>The Result:</strong> We create a seamless, end-to-end workflow for institutional learning. The friction of capturing knowledge is removed. The process of improving our automation becomes, itself, automated.</p>
+    </div>
+
+</body>
+</html>
