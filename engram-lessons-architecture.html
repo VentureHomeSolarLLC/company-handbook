@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Agora: Part 5</title>
+    <style>
+        :root {
+            --bg-color: #F3F3EA;
+            --text-color: #231F20;
+            --primary-color: #059669;
+            --accent-yellow: #F7FF96;
+            --border-color: #B1C3BD;
+            --header-border-color: #231F20;
+            --code-bg: #231F20;
+            --code-text: #F3F3EA;
+            --table-header-bg: #e9e9e1;
+            --table-border: #B1C3BD;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background: var(--bg-color);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--header-border-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .header h1 { 
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            font-size: 2.5rem; 
+            margin-bottom: 0.5rem; 
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .header .subtitle { color: #555; font-size: 1.1rem; }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 0.5rem 1rem;
+            margin-bottom: 3rem;
+            font-size: 0.9rem;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .meta-grid .label { font-weight: 600; text-align: right; color: #666; }
+        .section { margin-bottom: 3.5rem; }
+        h2 { 
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            margin-bottom: 1.5rem; 
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        p, ul, ol { margin-bottom: 1.25rem; }
+        ul, ol { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        
+        .code-block {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            white-space: pre;
+            font-family: 'SF Mono', monospace;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: #fff;
+        }
+        th, td {
+            border: 1px solid var(--table-border);
+            padding: 0.9rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th { background-color: var(--table-header-bg); font-weight: 600; color: var(--text-color); }
+        .vs-table td:first-child { font-weight: 600; }
+
+        .example-box {
+            background: #f0fdf4;
+            border: 1px solid var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        .example-title { font-weight: bold; color: var(--primary-color); margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>The Agora: Part 5</h1>
+        <div class="subtitle">Handling Permutations: The Role of Lessons in Conflict Resolution</div>
+    </div>
+
+    <div class="meta-grid">
+        <div class="label">TO:</div>         <div>Alex, Tom, Ryan, Hunter, Gorlock, Tony, John Connor, Rex</div>
+        <div class="label">FROM:</div>       <div>Rex</div>
+        <div class="label">DATE:</div>       <div>February 19, 2026</div>
+        <div class="label">SUBJECT:</div>    <div>Solving the "ConEd + Sunnova" Problem: How to Manage Edge Cases Without Breaking the System</div>
+    </div>
+
+    <div class="section">
+        <h2>1. The Interaction Problem</h2>
+        <p>We have established that we separate <strong>Universal Skills</strong> (Login, Upload) from <strong>Entity Rules/Concepts</strong> (ConEd needs X, Sunnova needs Y). This works for 95% of tasks.</p>
+        <p>But what happens when the combination of two entities creates a unique rule that neither has on its own? This is the "Edge Case," and it is where most automation fails.</p>
+        <p><strong>Example:</strong> Sunnova normally accepts a standard email for "PTO Proof." ConEd normally issues a PDF letter. But for <em>ConEd projects specifically</em>, Sunnova rejects the standard email and demands the official PDF letter.</p>
+        <p>If the agent follows the standard Sunnova rule ("Upload Email"), it fails. If it follows the standard ConEd rule ("Get Letter"), it might not upload it fast enough. We need a way to capture this specific interaction.</p>
+    </div>
+
+    <div class="section">
+        <h2>2. The Architecture of Nuance</h2>
+        <p>We introduce a third layer to our hierarchy: <strong>Lessons</strong>.</p>
+        
+        <table class="vs-table">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Role</th>
+                    <th>Example Content</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Skill</strong> (Verb)</td>
+                    <td>The Universal Logic</td>
+                    <td>"Log in, Upload Document, Submit."</td>
+                </tr>
+                <tr>
+                    <td><strong>Concept</strong> (Noun)</td>
+                    <td>The Entity Rules</td>
+                    <td>"ConEd requires 3-line diagrams."<br>"Sunnova requires PTO proof."</td>
+                </tr>
+                <tr>
+                    <td><strong>Lesson</strong> (Interaction)</td>
+                    <td>The Edge Case / Conflict</td>
+                    <td>"WHEN Utility is ConEd AND Finance is Sunnova: You must upload the official PDF, not the email."</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>3. The Agent's "Brain Loop"</h2>
+        <p>When an agent executes a task, it doesn't just run the code. It checks for these nuances at runtime.</p>
+        
+        <div class="code-block">
+1. LOAD SKILL: `submit-interconnection.md`
+   -> Agent begins standard process.
+
+2. LOAD CONCEPTS: `utilities/coned.md` + `finance/sunnova.md`
+   -> Agent applies standard constraints (3-line diagram, upload proof).
+
+3. CHECK LESSONS: "Do we have any lessons for `ConEd` + `Sunnova`?"
+   -> Database Query: `tags: [coned, sunnova]`
+   -> RESULT: Found `lessons/sunnova-coned-pto-letter.md`
+
+4. APPLY LESSON:
+   -> "Okay, I will override the standard Sunnova rule. I will wait for the PDF."
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. Why This Scales</h2>
+        <p>This approach solves the "Combinatorial Explosion" problem.</p>
+        <ul>
+            <li>We do <strong>not</strong> write a new procedure for every combination (no `submit-coned-sunnova.md`).</li>
+            <li>We write the standard rules in <strong>Concepts</strong>.</li>
+            <li>We capture the <em>exceptions</em> in <strong>Lessons</strong>.</li>
+        </ul>
+        <p>If a new weird rule emerges (e.g., "PSEG + Enfin requires a photo of the meter"), we just add <strong>one lesson file</strong>. The rest of the system remains untouched. The agent gets smarter without getting more complicated.</p>
+    </div>
+
+    <div class="section">
+        <h2>5. The Hierarchy in Practice</h2>
+        <div class="example-box">
+            <div class="example-title">File Structure</div>
+            <code>engrams/interconnection/</code><br>
+            ├── <code>skills/submit.md</code> (Standard Process)<br>
+            ├── <code>concepts/utilities/coned.md</code> (Rule: 3-Line)<br>
+            ├── <code>concepts/finance/sunnova.md</code> (Rule: PTO Proof)<br>
+            └── <code>lessons/sunnova-coned-pto.md</code> (<strong>Exception:</strong> PDF Only)
+        </div>
+        <p>This structure allows us to handle infinite complexity with finite files.</p>
+    </div>
+
+</body>
+</html>
