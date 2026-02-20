@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Agora: Part 7</title>
+    <style>
+        :root {
+            --bg-color: #F3F3EA;
+            --text-color: #231F20;
+            --primary-color: #059669;
+            --accent-yellow: #F7FF96;
+            --border-color: #B1C3BD;
+            --header-border-color: #231F20;
+            --code-bg: #231F20;
+            --code-text: #F3F3EA;
+            --table-header-bg: #e9e9e1;
+            --table-border: #B1C3BD;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background: var(--bg-color);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--header-border-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .header h1 { 
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            font-size: 2.5rem; 
+            margin-bottom: 0.5rem; 
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .header .subtitle { color: #555; font-size: 1.1rem; }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 0.5rem 1rem;
+            margin-bottom: 3rem;
+            font-size: 0.9rem;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .meta-grid .label { font-weight: 600; text-align: right; color: #666; }
+        .section { margin-bottom: 3.5rem; }
+        h2 { 
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            margin-bottom: 1.5rem; 
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        p, ul, ol { margin-bottom: 1.25rem; }
+        ul, ol { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        
+        .code-block {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            white-space: pre;
+            font-family: 'SF Mono', monospace;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: #fff;
+        }
+        th, td {
+            border: 1px solid var(--table-border);
+            padding: 0.9rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th { background-color: var(--table-header-bg); font-weight: 600; color: var(--text-color); }
+        .vs-table td:first-child { font-weight: 600; }
+
+        .security-box {
+            background: #fef2f2;
+            border: 1px solid #ef4444;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        .security-title { font-weight: bold; color: #ef4444; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>The Agora: Part 7</h1>
+        <div class="subtitle">The Keys to the Kingdom: Managing Secrets and Credentials</div>
+    </div>
+
+    <div class="meta-grid">
+        <div class="label">TO:</div>         <div>Alex, Tom, Ryan, Hunter, Gorlock, Tony, John Connor, Rex</div>
+        <div class="label">FROM:</div>       <div>Rex</div>
+        <div class="label">DATE:</div>       <div>February 19, 2026</div>
+        <div class="label">SUBJECT:</div>    <div>Solving the Shared Credentials Problem (ConEd, PSEG, & Sunnova)</div>
+    </div>
+
+    <div class="section">
+        <h2>1. The Shared Credentials Problem</h2>
+        <p>In the Agora, multiple different Engrams will need to access the same external systems.</p>
+        <ul>
+            <li><strong>Interconnection Agent:</strong> Needs ConEd login to submit applications.</li>
+            <li><strong>PTO Agent:</strong> Needs ConEd login to download approval letters.</li>
+            <li><strong>Performance Agent:</strong> Needs ConEd login to pull meter data.</li>
+        </ul>
+        <p>If we hardcode <code>username: "ops@venturehome.com", password: "Solar2026!"</code> into every single <code>SKILL.md</code> file, we create a security nightmare. If the password changes, we have to update 50 files. If an agent is compromised, the plain-text password is exposed.</p>
+    </div>
+
+    <div class="section">
+        <h2>2. The Solution: The Keychain Architecture</h2>
+        <p>We solve this by separating <strong>Reference Data</strong> (URLs, Login Page Locations) from <strong>Secrets</strong> (Usernames, Passwords).</p>
+
+        <h3>Component A: The Public Concept (The Map)</h3>
+        <p>The <strong>Concept File</strong> (`engrams/interconnection/concepts/utilities/coned.md`) stores the "Public" information about how to access the system.</p>
+        <div class="code-block">
+# Con Edison (ConEd)
+- **Login URL:** https://www.coned.com/login
+- **Credential Key:** `CONED_OPS_USER`
+- **Diagram Requirement:** 3-Line
+        </div>
+
+        <h3>Component B: The Secure Keychain (The Keys)</h3>
+        <p>The actual credentials are stored in the <strong>Agent's Environment Variables</strong> (`openclaw.json` or `.env`). This is the secure "Keychain" that the agent carries.</p>
+        <div class="code-block">
+"env": {
+  "CONED_OPS_USER": "ops@venturehome.com",
+  "CONED_OPS_PASS": "Solar2026!",
+  "PSEG_OPS_USER": "interconnect@venturehome.com"
+}
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. How the Agent Uses the Keys</h2>
+        <p>When an agent executes a Skill, it references the credential by its <strong>Key</strong>, never by its value.</p>
+        
+        <div class="code-block">
+# SKILL: Submit Application
+
+1. **Load Concept:** Read `concepts/utilities/coned.md`.
+   -> Agent learns the URL is `coned.com` and the Key is `CONED_OPS_USER`.
+
+2. **Retrieve Secret:** The Agent queries its own environment for the value of `CONED_OPS_USER`.
+   -> System returns: "ops@venturehome.com" (The Agent holds this in temporary memory only).
+
+3. **Execute Login:** The Agent uses the `browser` tool to inject the credentials.
+   -> `browser(action="type", selector="#username", text=process.env.CONED_OPS_USER)`
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. Why This is Secure & Scalable</h2>
+        <table class="vs-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Benefit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Centralized Updates</strong></td>
+                    <td>If we change the ConEd password, we update it in <strong>one place</strong> (the central config). All 50 agents instantly use the new password without code changes.</td>
+                </tr>
+                <tr>
+                    <td><strong>No Hardcoded Secrets</strong></td>
+                    <td>Our GitHub repositories (Engrams) contain <strong>zero passwords</strong>. We can safely share Engrams with contractors or new hires without leaking root access.</td>
+                </tr>
+                <tr>
+                    <td><strong>Role-Based Access</strong></td>
+                    <td>We can give different agents different keys. The "Sales Agent" might have the <code>SALES_CRM_USER</code> key, while the "Ops Agent" has the <code>ADMIN_CRM_USER</code> key. The Skill code remains the same; only the keys change.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>5. Summary</h2>
+        <p>To build a secure Agora:</p>
+        <ol>
+            <li><strong>Engrams</strong> tell the agent <em>where</em> to log in.</li>
+            <li><strong>Skills</strong> tell the agent <em>how</em> to log in.</li>
+            <li><strong>Environment Variables</strong> provide the <em>keys</em> to log in.</li>
+        </ol>
+        <div class="security-box">
+            <div class="security-title">Security Rule #1</div>
+            <p><strong>NEVER</strong> commit a password to a Markdown file, JSON file, or Script inside an Engram. Always use an Environment Variable reference (e.g., <code>$CONED_PASSWORD</code>).</p>
+        </div>
+    </div>
+
+</body>
+</html>
