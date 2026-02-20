@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Agora: Part 6</title>
+    <style>
+        :root {
+            --bg-color: #F3F3EA;
+            --text-color: #231F20;
+            --primary-color: #059669;
+            --accent-yellow: #F7FF96;
+            --border-color: #B1C3BD;
+            --header-border-color: #231F20;
+            --code-bg: #231F20;
+            --code-text: #F3F3EA;
+            --table-header-bg: #e9e9e1;
+            --table-border: #B1C3BD;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background: var(--bg-color);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--header-border-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .header h1 { 
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            font-size: 2.5rem; 
+            margin-bottom: 0.5rem; 
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .header .subtitle { color: #555; font-size: 1.1rem; }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 0.5rem 1rem;
+            margin-bottom: 3rem;
+            font-size: 0.9rem;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .meta-grid .label { font-weight: 600; text-align: right; color: #666; }
+        .section { margin-bottom: 3.5rem; }
+        h2 { 
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            margin-bottom: 1.5rem; 
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        p, ul, ol { margin-bottom: 1.25rem; }
+        ul, ol { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        
+        .code-block {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            white-space: pre;
+            font-family: 'SF Mono', monospace;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: #fff;
+        }
+        th, td {
+            border: 1px solid var(--table-border);
+            padding: 0.9rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th { background-color: var(--table-header-bg); font-weight: 600; color: var(--text-color); }
+        .vs-table td:first-child { font-weight: 600; }
+
+        .analogy-box {
+            background: #fdf2f8; /* Light pink/rose for analogy */
+            border: 1px solid #db2777;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        .analogy-title { font-weight: bold; color: #db2777; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>The Agora: Part 6</h1>
+        <div class="subtitle">Extending the Agent's Body: Global vs. Local Tooling</div>
+    </div>
+
+    <div class="meta-grid">
+        <div class="label">TO:</div>         <div>Alex, Tom, Ryan, Hunter, Gorlock, Tony, John Connor, Rex</div>
+        <div class="label">FROM:</div>       <div>Rex</div>
+        <div class="label">DATE:</div>       <div>February 19, 2026</div>
+        <div class="label">SUBJECT:</div>    <div>Tools in the Engram: The "Job Box" Philosophy</div>
+    </div>
+
+    <div class="section">
+        <h2>1. The Brain vs. The Hands</h2>
+        <p>In the Agora architecture, <strong>Engrams are the "Brain"</strong> (Knowledge, Logic, Rules) and <strong>Tools are the "Hands"</strong> (Capabilities, Actions).</p>
+        <p>An Engram doesn't *do* anything itself. It is a set of instructions that tells the Agent <em>how</em> to use its Tools.</p>
+        
+        <div class="analogy-box">
+            <div class="analogy-title">The Contractor Analogy</div>
+            <p>Imagine an Agent is a Contractor showing up to a job site.</p>
+            <ul>
+                <li><strong>The Agent:</strong> The person.</li>
+                <li><strong>The Tools:</strong> The hammer, drill, and wrench on their belt.</li>
+                <li><strong>The Engram:</strong> The blueprint and the instruction manual for the specific house they are building.</li>
+            </ul>
+            <p>The Blueprint (Engram) tells the Contractor (Agent) to "Use the Drill (Tool) on the Wall."</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. Global Tools vs. Local Tools</h2>
+        <p>Not all tools are created equal. Some are universal; some are hyper-specialized. We manage this distinction to keep agents lightweight but capable.</p>
+
+        <h3>Type A: Global Tools (The Tool Belt)</h3>
+        <p>These are the tools every agent has by default. They are part of the OpenClaw runtime, not the Engram.</p>
+        <ul>
+            <li><strong>Examples:</strong> <code>read_file</code>, <code>write_file</code>, <code>web_search</code>, <code>browser_click</code>.</li>
+            <li><strong>Location:</strong> System Level (Runtime).</li>
+            <li><strong>Usage:</strong> Any Engram can call these at any time.</li>
+        </ul>
+
+        <h3>Type B: Local Tools (The Job Box)</h3>
+        <p>Sometimes, a job requires a specialized instrument that isn't standard issue. We don't want to weigh down every agent with a "Voltage Drop Calculator" or a "CAD Rendering Script." We only want those tools present when the specific job demands them.</p>
+        <p>These are <strong>Local Tools</strong>, and they live <em>inside</em> the Engram.</p>
+        <ul>
+            <li><strong>Examples:</strong> <code>calculate_string_sizing.py</code>, <code>generate_line_diagram.js</code>, <code>parse_enphase_csv.py</code>.</li>
+            <li><strong>Location:</strong> Inside the Engram directory (`engrams/engineering/tools/`).</li>
+            <li><strong>Usage:</strong> Only available when the Agent loads this specific Engram.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>3. The "Job Box" Architecture</h2>
+        <p>Housing specialized tools inside the Engram makes the Engram <strong>portable</strong> and <strong>self-contained</strong>. Everything needed to complete the task—the instructions, the data, <em>and</em> the specialized equipment—is in one folder.</p>
+
+        <div class="code-block">
+engrams/solar-engineering/
+├── _index.md                    <-- The Router
+├── skills/
+│   └── calculate-string-sizing.md   <-- The Procedure (Step 1: Run Calculator)
+├── concepts/
+│   └── nec-codes.md             <-- The Reference Data (Rules)
+└── tools/                       <-- THE JOB BOX
+    └── voltage-drop-calculator.py   <-- The Specialized Tool
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. How an Agent Uses a Local Tool</h2>
+        <p>When an agent executes the Skill, it sees an instruction to use the local tool.</p>
+        
+        <div class="code-block">
+# SKILL: Calculate String Sizing
+
+1. **Gather Data:** Read the panel specifications from `concepts/panels.md`.
+2. **Execute Tool:** Run the local script `tools/voltage-drop-calculator.py` with the panel data as input.
+   - Command: `exec(command="python3 engrams/solar-engineering/tools/voltage-drop-calculator.py --volts 400")`
+3. **Interpret Output:** Read the JSON output from the script.
+4. **Pivot:** Compare output against `concepts/nec-codes.md`.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>5. Summary</h2>
+        <table class="vs-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Global Tools</th>
+                    <th>Local Tools</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Analogy</strong></td>
+                    <td>The Tool Belt (Always on)</td>
+                    <td>The Job Box (Brought for the job)</td>
+                </tr>
+                <tr>
+                    <td><strong>Location</strong></td>
+                    <td>System / Runtime</td>
+                    <td><code>engrams/{name}/tools/</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Access</strong></td>
+                    <td>Universal (All Agents)</td>
+                    <td>Context-Specific (Only when Engram is loaded)</td>
+                </tr>
+                <tr>
+                    <td><strong>Example</strong></td>
+                    <td><code>read_file</code>, <code>web_search</code></td>
+                    <td><code>calculate_voltage.py</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
